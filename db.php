@@ -4,7 +4,7 @@ $host = "localhost";
 $dbname = "mini_tracker";
 $username = "root";
 $password = "";
-
+// this is a commit
 try {
 
     $conn = new PDO(
