@@ -1,6 +1,6 @@
 
 <?php
-
+// this is my first change in this ticket
 require_once "db.php";
 
 // Create a new ticket
