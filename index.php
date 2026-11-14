@@ -90,6 +90,7 @@ $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <option value="Open">Open</option>
         <option value="In Progress">In Progress</option>
         <option value="Completed">Completed</option>
+        <option value="On Hold">On Hold</option>
     </select>
 
     <button type="submit">Update Status</button>
