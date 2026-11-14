@@ -6,28 +6,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id = $_POST["id"];
     $status = $_POST["status"];
+    $priority = $_POST["priority"];
 
     $allowedStatuses = [
         "Open",
         "In Progress",
         "Completed",
-        "onhold"
+        "on Hold"
     ];
 
-    if (in_array($status, $allowedStatuses)) {
+    $allowedPriorities = [
+    "Low",
+    "Medium",
+    "High"
+];
 
-        $sql = "UPDATE tickets
-                SET status = :status
-                WHERE id = :id";
+    if (
+    in_array($status, $allowedStatuses) &&
+    in_array($priority, $allowedPriorities)
+) {
 
-        $stmt = $conn->prepare($sql);
+    $sql = "UPDATE tickets
+            SET status = :status,
+                priority = :priority
+            WHERE id = :id";
 
-        $stmt->execute([
-            ':status' => $status,
-            ':id' => $id
-        ]);
+    $stmt = $conn->prepare($sql);
+
+    $stmt->execute([
+        ':status' => $status,
+        ':priority' => $priority,
+        ':id' => $id
+    ]);
     }
-
     header("Location: index.php");
     exit;
 }

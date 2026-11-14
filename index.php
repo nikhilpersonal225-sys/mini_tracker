@@ -11,15 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($title != "") {
 
-        $sql = "INSERT INTO tickets (title, description)
-                VALUES (:title, :description)";
+        $sql = "INSERT INTO tickets (title, description, priority)
+        VALUES (:title, :description, :priority)";
 
-        $stmt = $conn->prepare($sql);
-// this is another change
-        $stmt->execute([
-            ':title' => $title,
-            ':description' => $description
-        ]);
+$stmt = $conn->prepare($sql);
+
+$stmt->execute([
+    ':title' => $title,
+    ':description' => $description,
+    ':priority' => $_POST['priority']
+]);
 
         header("Location: index.php");
         exit;
@@ -56,6 +57,15 @@ $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <textarea name="description"></textarea>
         <br><br>
 
+        <label>Priority:</label><br>
+
+        <select name="priority">
+         <option value="Low">Low</option>
+         <option value="Medium" selected>Medium</option>
+         <option value="High">High</option>
+        </select>
+         <br><br>
+
         <button type="submit">Create Ticket</button>
 
     </form>
@@ -81,6 +91,11 @@ $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php echo htmlspecialchars($ticket['status']); ?>
 </p>
 
+<p>
+    Priority:
+    <?php echo htmlspecialchars($ticket['priority']); ?>
+</p>
+
 <form method="POST" action="update.php">
 
     <input type="hidden" name="id"
@@ -92,6 +107,23 @@ $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <option value="Completed">Completed</option>
         <option value="On Hold">On Hold</option>
     </select>
+
+     <select name="priority">
+    <option value="Low"
+        <?php if ($ticket['priority'] == 'Low') echo 'selected'; ?>>
+        Low
+    </option>
+
+    <option value="Medium"
+        <?php if ($ticket['priority'] == 'Medium') echo 'selected'; ?>>
+        Medium
+    </option>
+
+    <option value="High"
+        <?php if ($ticket['priority'] == 'High') echo 'selected'; ?>>
+        High
+    </option>
+</select>
 
     <button type="submit">Update Status</button>
 
