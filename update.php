@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $allowedStatuses = [
         "Open",
         "In Progress",
-        "Completed"
+        "Completed",
+        "onhold"
     ];
 
     if (in_array($status, $allowedStatuses)) {
