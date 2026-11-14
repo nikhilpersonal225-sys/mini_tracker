@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES (:title, :description)";
 
         $stmt = $conn->prepare($sql);
-
+// this is another change
         $stmt->execute([
             ':title' => $title,
             ':description' => $description
@@ -104,6 +104,8 @@ $tickets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <hr>
 
         </div>
+        
+        
 
     <?php endforeach; ?>
 
